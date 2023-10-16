@@ -9,7 +9,12 @@ const notFoundHandler = (req, res, next) => {
 
 }
 
-const router = express.Router();
-router.post('/', notFoundHandler);
+// const router = express.Router();
+// router.post('/', notFoundHandler);
+// router.get('/', (req, res, next) => {
 
-export default router;
+//   res.send("OK");
+
+// });
+
+export default notFoundHandler;

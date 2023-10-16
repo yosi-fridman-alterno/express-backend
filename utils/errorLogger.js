@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { __dirname } from './constants.js'
 
 export const errorLogger = (err) => {
     const stream = fs.createWriteStream(path.join(__dirname, 'error.log'), { flags: 'a' });
@@ -18,7 +19,7 @@ export const errorHandler = (err, req, res, next) => {
     // render the error page (renders a view and sends the rendered HTML string to the client)
     res.status(err.status || 500);
 
-    if (res.status === 404) {
+    if (res.statusCode === 404) {
         res.render('error'); //return html error page not found
     } else {
         res.send(err.toString());

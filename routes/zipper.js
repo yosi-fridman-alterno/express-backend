@@ -2,6 +2,8 @@ import express from "express";
 import archiver from "archiver";
 import url from "url";
 import { errorLogger } from "../utils/errorLogger.js";
+import http from 'http';
+import https from 'https';
 
 const zipHandler = (req, res, next) => {
 
@@ -35,7 +37,7 @@ const pipeRemoteFile = (sUrl, archive) => {
 
   return new Promise((resolve, reject) => {
 
-    const lib = sUrl.startsWith('https') ? require('https') : require('http');
+    const lib = sUrl.startsWith('https') ? https : http;
 
     const request = lib.get(sUrl, (response) => {
 

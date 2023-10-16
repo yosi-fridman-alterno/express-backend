@@ -6,7 +6,7 @@ import indexRouter from './routes/index.js';
 import usersRouter from './routes/notFound.js';
 import mergerRouter from './routes/merger.js';
 import zipperRouter from './routes/zipper.js';
-import notFoundRouter from './routes/notFound.js'
+import notFoundHandler from './routes/notFound.js'
 import accessLogger from './utils/accessLogger.js';
 import { errorHandler } from './utils/errorLogger.js';
 import { __dirname } from './utils/constants.js';
@@ -50,7 +50,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/merger', mergerRouter);
 app.use('/zipper', zipperRouter);
-app.use('*', notFoundRouter);
+app.use(notFoundHandler)
 
 /**
  * Error handler
