@@ -1,9 +1,9 @@
 import express from "express";
 import archiver from "archiver";
+import https from 'https';
+import http from 'http';
 import url from "url";
 import { errorLogger } from "../utils/errorLogger.js";
-import http from 'http';
-import https from 'https';
 
 const zipHandler = (req, res, next) => {
 
@@ -59,11 +59,10 @@ const pipeRemoteFile = (sUrl, archive) => {
         }).on('end', () => {
           const rawFile = Buffer.concat(data);
 
-          resolve(
-            () => {
-              const decodedName = decodeURIComponent(sFileName);
-              archive.append(rawFile, { name: decodedName + sFileType });
-            }
+          resolve(() => {
+            const decodedName = decodeURIComponent(sFileName);
+            archive.append(rawFile, { name: decodedName + sFileType });
+          }
           )
         });
 

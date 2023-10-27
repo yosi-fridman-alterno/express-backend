@@ -12,3 +12,14 @@
 2023-10-16T16:34:12.282Z :: {} :: ReferenceError: require is not defined
 2023-10-16T16:34:53.692Z :: {"code":"ERR_INVALID_PROTOCOL"} :: TypeError [ERR_INVALID_PROTOCOL]: Protocol "https:" not supported. Expected "http:"
 2023-10-16T16:36:01.411Z :: {"code":"ERR_INVALID_PROTOCOL"} :: TypeError [ERR_INVALID_PROTOCOL]: Protocol "https:" not supported. Expected "http:"
+2023-10-26T08:38:10.402Z :: {} :: Error: All files must be valid PDF files
+2023-10-26T08:57:34.930Z :: {} :: Error: All files must be valid PDF files
+2023-10-26T10:23:25.577Z :: {"code":"ECONNRESET"} :: Error: socket hang up
+2023-10-26T10:26:18.749Z :: {} :: Error: All files must be valid PDF files
+2023-10-26T10:27:55.602Z :: {} :: Error: All files must be valid PDF files
+2023-10-26T10:52:16.615Z :: {} :: Error: All files must be valid PDF files
+2023-10-26T10:54:39.869Z :: {} :: Error: All files must be valid PDF files
+2023-10-26T13:38:19.876Z :: {} :: Error: All files must be valid PDF files
+2023-10-26T13:43:18.073Z :: {} :: Error: Failed to download file https://www.africau.edu/images/default/sample1.
+2023-10-26T13:43:28.313Z :: {} :: Error: Failed to download file https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy1.
+2023-10-26T13:43:35.490Z :: {} :: Error: Failed to download file .

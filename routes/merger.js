@@ -1,9 +1,12 @@
 import express from "express"
 import hummus from "hummus"
-import tmp from "tmp"
-import fs from "fs"
+import https from 'https';
+import http from 'http';
 import path from "path"
+import tmp from "tmp"
 import url from "url"
+import eos from "end-of-stream"
+import fs from "fs"
 import { errorLogger } from "../utils/errorLogger.js"
 
 const mergePDFhandler = async (req, res, next) => {
@@ -41,26 +44,39 @@ const saveTempFiles = (req, res) => {
     return aPromises;
 }
 
-const downloadTempFile = async (sUrl) => {
+const downloadTempFile = (sUrl) => {
 
-    const response = await fetch(sUrl);
+    return new Promise((resolve, reject) => {
 
-    if (response.status < 200 || response.status > 299) {
-        const errMsg = 'Failed to download file ' + (new url.URLSearchParams(sUrl).get('compId') || '') + '.';
+        const lib = sUrl.startsWith('https') ? https : http;
 
-        throw new Error(errMsg);
+        const request = lib.get(sUrl, (response) => {
 
-    } else {
-        const blob = await response.blob();
-        const oTemp = tmp.fileSync();
-        const buffer = Buffer.from(await blob.arrayBuffer());
+            // handle http errors
+            if (response.statusCode < 200 || response.statusCode > 299) {
+                var errMsg = 'Failed to download file ' + (new url.URLSearchParams(sUrl).get('compId') || '') + '.';
+                reject(new Error(errMsg));
+            } else {
+                let oTemp = tmp.fileSync();
+                let file = fs.createWriteStream(oTemp.name);
+                response.pipe(file);
 
-        fs.writeFileSync(oTemp.name, buffer);
+                response.on('end', () => {
 
-        return oTemp;
+                });
 
-    }
-
+                eos(file, function (err) { //end of stream, means file writing to file system completed for sure
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(oTemp);
+                    }
+                });
+            }
+        });
+        // handle connection errors of the request
+        request.on('error', (err) => reject(err))
+    })
 };
 
 const assertPDFfiles = (aTempFiles) => {
