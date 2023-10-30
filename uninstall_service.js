@@ -1,10 +1,10 @@
-var Service = require('node-windows').Service;
+import { Service } from 'node-windows';
  
 // Create a new service object
 var svc = new Service({
-  name: 'iroads-nodejs-server',
+  name: 'express-nodejs-server',
   description: 'iroads Node.js server',
-  script: 'C:\\iroads-nodejs-server\\index.js'
+  script: 'C:\\Users\\YOSI\\workspace\\express-backend\\index.js'
 });
  
 // Listen for the "uninstall" event so we know when it's done.
